@@ -1,0 +1,12 @@
+
+// we need to check the every corneer wheather thy overlap or not 
+
+
+A==========b
+
+C==========D
+
+A=>   X:100 Y:200
+b=>   X:100+width Y:200
+C=>   X :100 Y: 200 + heigth
+D=>   X: 100 +width Y:200 + heigth
