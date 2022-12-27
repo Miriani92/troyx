@@ -1,9 +1,8 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
 
 //const xRange = Array.from({ length: CANVAS_WIDTH }, (v, i) => i);
-//const yRange = Array.from({ length: CANVAS_HEIGHT }, (v, i) => i);
 
-export const onGenerateRandomNumber = (min = 50, max = 250) => {
+export const onGenerateRandomNumber = (min = 50, max = 50) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
@@ -11,15 +10,14 @@ export const onPlaceDiv = (width, height, allDivCordinates) => {
   let marginLeft, marginTop, currentCordinates, isOverlap;
   const divHeight = Number(height.slice(0, -2));
   const divWidth = Number(width.slice(0, -2));
-  console.log("before generate left and right");
   marginLeft = onGenerateRandomNumber(0, CANVAS_WIDTH - divWidth);
   marginTop = onGenerateRandomNumber(0, CANVAS_HEIGHT - divHeight);
 
   currentCordinates = getDivCoordinates(
     marginLeft,
     marginTop,
-    divHeight,
-    divWidth
+    divWidth,
+    divHeight
   );
   if (allDivCordinates.length > 0) {
     isOverlap = true;
@@ -33,16 +31,15 @@ export const onPlaceDiv = (width, height, allDivCordinates) => {
           marginTop,
           currentCordinates,
         };
-      } else {
-        marginLeft = onGenerateRandomNumber(0, CANVAS_WIDTH - divWidth);
-        marginTop = onGenerateRandomNumber(0, CANVAS_HEIGHT - divHeight);
-        currentCordinates = getDivCoordinates(
-          marginLeft,
-          marginTop,
-          divHeight,
-          divWidth
-        );
       }
+      marginLeft = onGenerateRandomNumber(0, CANVAS_WIDTH - divWidth);
+      marginTop = onGenerateRandomNumber(0, CANVAS_HEIGHT - divHeight);
+      currentCordinates = getDivCoordinates(
+        marginLeft,
+        marginTop,
+        divWidth,
+        divHeight
+      );
     }
   }
   return {
@@ -57,7 +54,7 @@ export function getDivCoordinates(left, top, width, height) {
     A: { x: left, y: top },
     B: { x: left + width, y: top },
     C: { x: left, y: top + height },
-    D: { x: left + width, y: height + height },
+    D: { x: left + width, y: top + height },
   };
 }
 
@@ -77,3 +74,33 @@ export function checkOverLap(cordinates, currentDiv) {
   }
   return isOverlap;
 }
+
+export const handleClick = (e, set) => {
+  e.target.style.background = "red";
+  set(e.target);
+};
+export const handleMove = (e, curr, speed) => {
+  let distanceFromLeft = Number(curr.style.marginLeft.slice(0, -2));
+  let distanceFromTop = Number(curr.style.marginTop.slice(0, -2));
+
+  if (e.keyCode === 37) {
+    //left
+    distanceFromLeft--;
+    curr.style.marginLeft = `${distanceFromLeft - speed}px`;
+  }
+  if (e.keyCode === 39) {
+    // right
+    distanceFromLeft++;
+    curr.style.marginLeft = `${distanceFromLeft + speed}px`;
+  }
+  if (e.keyCode === 40) {
+    //down
+    distanceFromTop++;
+    curr.style.marginTop = `${distanceFromTop + speed}px`;
+  }
+  if (e.keyCode === 38) {
+    //up
+    distanceFromTop--;
+    curr.style.marginTop = `${distanceFromTop - speed}px`;
+  }
+};
