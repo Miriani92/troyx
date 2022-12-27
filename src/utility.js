@@ -2,7 +2,7 @@ import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
 
 //const xRange = Array.from({ length: CANVAS_WIDTH }, (v, i) => i);
 
-export const onGenerateRandomNumber = (min = 50, max = 50) => {
+export const onGenerateRandomNumber = (min = 50, max = 250) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
@@ -23,7 +23,6 @@ export const onPlaceDiv = (width, height, allDivCordinates) => {
     isOverlap = true;
     while (isOverlap) {
       isOverlap = checkOverLap(allDivCordinates, currentCordinates);
-      console.log(isOverlap);
       if (!isOverlap) {
         isOverlap = false;
         return {
@@ -75,7 +74,10 @@ export function checkOverLap(cordinates, currentDiv) {
   return isOverlap;
 }
 
-export const handleClick = (e, set) => {
+export const handleClick = (e, set, parentDiv) => {
+  for (const child of parentDiv.children) {
+    child.style.background = "yellow";
+  }
   e.target.style.background = "red";
   set(e.target);
 };

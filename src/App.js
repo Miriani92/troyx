@@ -25,20 +25,24 @@ function App() {
     childDiv.style.marginTop = `${marginTop}px`;
     childDiv.style.borderRadius = "5px";
     childDiv.style.background = "yellow";
+    childDiv.setAttribute("tabindex", "0");
     childDiv.addEventListener("click", (e) => {
-      handleClick(e, setCurrentDiv);
+      handleClick(e, setCurrentDiv, parentDiv);
     });
     setDivsCordinates((state) => {
       return [...state, currentCordinates];
     });
   };
+
   useEffect(() => {
     if (!currentDiv) return;
-    window.addEventListener("keyup", (e) => {
+    currentDiv.addEventListener("keyup", (e) => {
+      handleMove(e, currentDiv, speed);
+    });
+    return window.removeEventListener("keyup", (e) => {
       handleMove(e, currentDiv, speed);
     });
   });
-  console.log(speed);
   return (
     <div className="appWrapper">
       <div className="canvas" ref={canvas}></div>
