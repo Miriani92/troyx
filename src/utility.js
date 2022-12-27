@@ -106,3 +106,10 @@ export const handleMove = (e, curr, speed) => {
     curr.style.marginTop = `${distanceFromTop - speed}px`;
   }
 };
+export const onClear = (parentDiv) => {
+  let child = parentDiv.lastElementChild;
+  while (child) {
+    parentDiv.removeChild(child);
+    child = parentDiv.lastElementChild;
+  }
+};

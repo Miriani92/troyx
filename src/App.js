@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { handleClick, onGenerateRandomNumber } from "./utility";
-import { onPlaceDiv, handleMove } from "./utility";
+import { onPlaceDiv, handleMove, onClear } from "./utility";
 
 function App() {
   const [divsCordinates, setDivsCordinates] = useState([]);
@@ -50,7 +50,7 @@ function App() {
         <label>Speed</label>
         <input onChange={(e) => setSpeed(Number(e.target.value))}></input>
         <button onClick={onAddDiv}>Add</button>
-        <button>Clear</button>
+        <button onClick={() => onClear(canvas.current)}>Clear</button>
       </div>
     </div>
   );
