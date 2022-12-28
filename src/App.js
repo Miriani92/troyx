@@ -34,6 +34,7 @@ function App() {
     });
   };
 
+  console.log(divsCordinates);
   useEffect(() => {
     if (!currentDiv) return;
     currentDiv.addEventListener("keyup", (e) => {
@@ -48,7 +49,10 @@ function App() {
       <div className="canvas" ref={canvas}></div>
       <div className="controlPanelContainer">
         <label>Speed</label>
-        <input onChange={(e) => setSpeed(Number(e.target.value))}></input>
+        <input
+          onChange={(e) => setSpeed(Number(e.target.value))}
+          value={speed}
+        ></input>
         <button onClick={onAddDiv}>Add</button>
         <button onClick={() => onClear(canvas.current)}>Clear</button>
       </div>

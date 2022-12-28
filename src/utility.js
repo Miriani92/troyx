@@ -1,7 +1,4 @@
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from "./constants";
-
-//const xRange = Array.from({ length: CANVAS_WIDTH }, (v, i) => i);
-
 export const onGenerateRandomNumber = (min = 50, max = 250) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
@@ -63,10 +60,18 @@ export function checkOverLap(cordinates, currentDiv) {
   for (let i = 0; i < cordinates.length; i++) {
     const { A, B, C, D } = cordinates[i];
     if (
+      //check if current div corner overlap existing div
       (A_.x >= A.x && A_.x <= D.x && A_.y >= B.y && A_.y <= D.y) ||
       (B_.x >= A.x && B_.x <= D.x && B_.y >= B.y && B_.y <= D.y) ||
       (C_.x >= A.x && C_.x <= D.x && C_.y >= B.y && C_.y <= D.y) ||
-      (D_.x >= A.x && D_.x <= D.x && D_.y >= B.y && D_.y <= D.y)
+      (D_.x >= A.x && D_.x <= D.x && D_.y >= B.y && D_.y <= D.y) ||
+      //chekc vice versa if existing div corner overlap current
+      (A.x >= A_.x && A.x <= D_.x && A.y >= B_.y && A.y <= D_.y) ||
+      (B.x >= A_.x && B.x <= D_.x && B.y >= B_.y && B.y <= D_.y) ||
+      (C.x >= A_.x && C.x <= D_.x && C.y >= B_.y && C.y <= D_.y) ||
+      (D.x >= A_.x && D.x <= D_.x && D.y >= B_.y && D.y <= D_.y) ||
+      // check case when none of the corners overlap but body
+      (A_.x >= A.x && A_.x <= D.x && A_.y < B.y && C_.y > C.y)
     ) {
       isOverlap = true;
     }
